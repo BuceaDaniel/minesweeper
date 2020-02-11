@@ -1,0 +1,18 @@
+#big_box {
+  /* height: 200px; */
+  /* width: 200px; */
+  /* border: 5px solid #aaaaaa; */
+  position: relative;
+  transform: translate(50%, 50%);
+}
+
+#big_box div {
+  /* border: 1px solid white; */
+  position: absolute;
+  margin: 0;
+  padding: 0;
+}
+
+.mine {
+  background-color: tomato !important;
+}
