@@ -11,6 +11,10 @@
   position: absolute;
   margin: 0;
   padding: 0;
+  text-align: center;
+  padding-top: 6px;
+  color: dodgerblue;
+  cursor: pointer;
 }
 
 .mine {
