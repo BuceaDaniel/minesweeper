@@ -43,6 +43,10 @@ function hex(x) {
 function squareClick(event) {
   console.log(event);
   changeColour(document.getElementById(event.target.id));
+  var index = event.target.id.split("_")[1].split("-");
+  var x = Number.parseInt(index[0]);
+  var y = Number.parseInt(index[1]);
+  autoClick(x, y);
 }
 
 function init() {
@@ -102,14 +106,10 @@ function changeColour(el) {
 }
 
 function nbTheSquare() {
-  // mapMatrix[2][2] = checkNeighbours(2, 2);
-
   for (var i = 0; i < NB_OF_SQR; i++) {
     for (var j = 0; j < NB_OF_SQR; j++) {
       if (mapMatrix[i][j] != "M") {
         mapMatrix[i][j] = checkNeighbours(i, j);
-        document.getElementById("box_" + i + "-" + j).innerText =
-          mapMatrix[i][j];
       }
     }
   }
@@ -131,4 +131,29 @@ function checkNeighbours(x, y) {
   nbOfMines += y > 0 && mapMatrix[x][y - 1] == "M" ? 1 : 0;
   nbOfMines += x > 0 && y > 0 && mapMatrix[x - 1][y - 1] == "M" ? 1 : 0;
   return nbOfMines;
+}
+
+function autoClick(x, y) {
+  if (x >= 0 && x < NB_OF_SQR && y >= 0 && y < NB_OF_SQR) {
+    if (mapMatrix[x][y] == 0) {
+      mapMatrix[x][y] = 0 + "V";
+      autoClick(x + 1, y);
+      autoClick(x + 1, y - 1);
+      autoClick(x - 1, y);
+      autoClick(x - 1, y + 1);
+      autoClick(x, y + 1);
+      autoClick(x + 1, y + 1);
+      autoClick(x, y - 1);
+      autoClick(x - 1, y - 1);
+      changeColour(document.getElementById("box_" + x + "-" + y));
+    } else {
+      document.getElementById("box_" + x + "-" + y).innerText =
+        mapMatrix[x][y] == "0" || mapMatrix[x][y] == "0V"
+          ? ""
+          : mapMatrix[x][y];
+      changeColour(document.getElementById("box_" + x + "-" + y));
+    }
+  } else {
+    return;
+  }
 }
